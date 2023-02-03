@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Electricity_bill": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\User\\source\\repos\\Electricity_bill\\Electricity_bill"
+    },
+    "Profile 1": {
+      "commandName": "Project"
+    }
+  }
+}
