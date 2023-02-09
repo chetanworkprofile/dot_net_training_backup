@@ -18,3 +18,4 @@ C:\Users\User\source\repos\Electricity_bill\Electricity_bill\bin\Debug\net6.0\Sy
 C:\Users\User\source\repos\Electricity_bill\Electricity_bill\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 C:\Users\User\source\repos\Electricity_bill\Electricity_bill\obj\Debug\net6.0\Electricity_bill.csproj.CopyComplete
 C:\Users\User\source\repos\Electricity_bill\Electricity_bill\bin\Debug\net6.0\Microsoft.Office.Interop.Excel.dll
+C:\Users\User\source\repos\Electricity_bill\Electricity_bill\bin\Debug\net6.0\CsvHelper.dll
