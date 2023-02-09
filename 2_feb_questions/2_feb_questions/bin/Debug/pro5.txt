@@ -1,0 +1,6 @@
+original_string_addbefore
+add
+hellosir
+
+ Output 
+original_string_hellosiraddbefore

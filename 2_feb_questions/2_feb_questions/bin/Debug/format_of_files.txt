@@ -1,0 +1,21 @@
+pro1 = input -> size
+		array
+	output -> elements and frequency
+
+pro2 = input -> size
+		array
+		index to delete
+	output->array after deleting element
+
+pro3 = input -> dimension of square matrix
+		matrix elements row-wise
+	output -> sum of diagonals
+
+pro4 = input -> string
+	output -> max character
+		no of occurences
+
+pro5 = input -> org string
+		string to search
+		string to search
+	output-> desired string

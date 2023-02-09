@@ -1,0 +1,5 @@
+hellothere thisisstring writtenfromprogram
+
+ Output 
+Max character in string: r
+ No. of Occurences: 6

@@ -1,0 +1,8 @@
+C:\Users\User\source\repos\2_feb_questions\2_feb_questions\bin\Debug\2_feb_questions.exe.config
+C:\Users\User\source\repos\2_feb_questions\2_feb_questions\bin\Debug\2_feb_questions.exe
+C:\Users\User\source\repos\2_feb_questions\2_feb_questions\bin\Debug\2_feb_questions.pdb
+C:\Users\User\source\repos\2_feb_questions\2_feb_questions\obj\Debug\2_feb_questions.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\2_feb_questions\2_feb_questions\obj\Debug\2_feb_questions.csproj.SuggestedBindingRedirects.cache
+C:\Users\User\source\repos\2_feb_questions\2_feb_questions\obj\Debug\2_feb_questions.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\2_feb_questions\2_feb_questions\obj\Debug\2_feb_questions.exe
+C:\Users\User\source\repos\2_feb_questions\2_feb_questions\obj\Debug\2_feb_questions.pdb
