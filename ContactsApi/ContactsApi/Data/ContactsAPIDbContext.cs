@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ContactsApi.Modals;
-namespace ContactsAPI.Data
+namespace ContactsApi.Data
 {
     public class ContactsAPIDbContext : DbContext
     {
