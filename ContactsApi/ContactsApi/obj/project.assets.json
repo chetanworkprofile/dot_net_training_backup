@@ -3753,19 +3753,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\User\\.nuget\\packages\\": {}
+    "C:\\Users\\ChicMic\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\source\\repos\\ContactsApi\\ContactsApi\\ContactsApi.csproj",
+      "projectUniqueName": "C:\\Users\\ChicMic\\source\\repos\\ContactsApi\\ContactsApi\\ContactsApi.csproj",
       "projectName": "ContactsApi",
-      "projectPath": "C:\\Users\\User\\source\\repos\\ContactsApi\\ContactsApi\\ContactsApi.csproj",
-      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\source\\repos\\ContactsApi\\ContactsApi\\obj\\",
+      "projectPath": "C:\\Users\\ChicMic\\source\\repos\\ContactsApi\\ContactsApi\\ContactsApi.csproj",
+      "packagesPath": "C:\\Users\\ChicMic\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ChicMic\\source\\repos\\ContactsApi\\ContactsApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ChicMic\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3829,7 +3829,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
       }
     }
   }
