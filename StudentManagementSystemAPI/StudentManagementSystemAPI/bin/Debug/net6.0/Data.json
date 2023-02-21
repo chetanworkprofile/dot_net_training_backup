@@ -10,7 +10,7 @@
       "CreatedAt": "2023-02-20T18:00:08.756089+05:30",
       "UpdatedAt": "2023-02-20T18:00:08.7578057+05:30",
       "TeacherId": "ef00e3ab-0e1c-4123-bf5e-f6105571aa6f",
-      "IsDeleted": false
+      "IsDeleted": true
     },
     {
       "Id": "1d364eef-4ad1-4469-8941-16b24d2dcd52",
@@ -26,13 +26,13 @@
     },
     {
       "Id": "b5df2247-7b78-4dc4-aad9-298fc19626dc",
-      "Name": "mandeep",
-      "Age": 30,
-      "Email": "mandeep@gmail.com",
-      "Gender": "male",
+      "Name": "sandeep",
+      "Age": 21,
+      "Email": null,
+      "Gender": null,
       "Phone": 0,
       "CreatedAt": "2023-02-21T14:01:43.5274032+05:30",
-      "UpdatedAt": "2023-02-21T14:01:43.5276319+05:30",
+      "UpdatedAt": "2023-02-21T18:05:22.1980126+05:30",
       "TeacherId": "ef00e3ab-0e1c-4123-bf5e-f6105571aa6f",
       "IsDeleted": false
     },
@@ -47,6 +47,18 @@
       "UpdatedAt": "2023-02-21T14:03:41.2206298+05:30",
       "TeacherId": "bb9b85eb-5e5a-4f87-b9ff-e0a9ba8d3c1a",
       "IsDeleted": false
+    },
+    {
+      "Id": "801142bf-9300-4d95-ac6e-7a6931ec03ae",
+      "Name": "maninder",
+      "Age": 23,
+      "Email": "maninder@sjahd.cc",
+      "Gender": "string",
+      "Phone": 0,
+      "CreatedAt": "2023-02-21T18:26:42.3096175+05:30",
+      "UpdatedAt": "2023-02-21T18:26:42.3096381+05:30",
+      "TeacherId": "ef00e3ab-0e1c-4123-bf5e-f6105571aa6f",
+      "IsDeleted": false
     }
   ],
   "Teacher": [
@@ -57,7 +69,8 @@
       "Email": "satinder@gmail.com",
       "Gender": "male",
       "Phone": 0,
-      "Students_Allocated": []
+      "Students_Allocated": [
+      ]
     },
     {
       "Id": "ef00e3ab-0e1c-4123-bf5e-f6105571aa6f",
@@ -67,8 +80,8 @@
       "Gender": "string",
       "Phone": 0,
       "Students_Allocated": [
-        "f5ced0df-ccc3-422e-9404-89f6770bf289",
-        "b5df2247-7b78-4dc4-aad9-298fc19626dc"
+        "b5df2247-7b78-4dc4-aad9-298fc19626dc",
+        "801142bf-9300-4d95-ac6e-7a6931ec03ae"
       ]
     }
   ]
