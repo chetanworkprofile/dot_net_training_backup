@@ -100,23 +100,23 @@ namespace StudentManagementSystemAPI.Services
                     {
                         Student student = new Student();
                         student = details.Student[index];
-                        if (s.Name != "string" || s.Name != null)
+                        if (s.Name != "string" && s.Name != null)
                         {
                             student.Name = s.Name;
                         }
-                        if (s.Age != 0 || s.Age != null)
+                        if (s.Age != 0 && s.Age != null)
                         {
                             student.Age = s.Age;
                         }
-                        if (s.Email != "string" || s.Email != null)
+                        if (s.Email != "string" && s.Email != null)
                         {
                             student.Email = s.Email;
                         }
-                        if (s.Gender != "string" || s.Gender != null)
+                        if (s.Gender != "string" && s.Gender != null)
                         {
                             student.Gender = s.Gender;
                         }
-                        if (s.Phone != 0 || s.Phone != null)
+                        if (s.Phone != 0 && s.Phone != null)
                         {
                             student.Phone = s.Phone;
                         }

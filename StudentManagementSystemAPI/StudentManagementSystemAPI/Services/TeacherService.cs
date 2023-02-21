@@ -95,22 +95,44 @@ namespace StudentManagementSystemAPI.Services
             return response;
         }
 
-        public Response UpdateTeacher([FromBody] UpdateTeacher t)
+        public Response UpdateTeacher(Guid Id, [FromBody] UpdateTeacher t)
         {
-            int index = details.Teacher.FindIndex(p => p.Id == t.Id);
+            int index = details.Teacher.FindIndex(p => p.Id == Id);
 
             if (index >= 0)
             {
-                Teacher teacher = new Teacher()
+                Teacher teacher = new Teacher();
+                teacher = details.Teacher[index];
+                if (t.Name != "string" && t.Name != null)
                 {
-                    Id = t.Id,
+                    teacher.Name = t.Name;
+                }
+                if (t.Age != 0 && t.Age != null)
+                {
+                    teacher.Age = t.Age;
+                }
+                if (t.Email != "string" && t.Email != null)
+                {
+                    teacher.Email = t.Email;
+                }
+                if (t.Gender != "string" && t.Gender != null)
+                {
+                    teacher.Gender = t.Gender;
+                }
+                if (t.Phone != 0 && t.Phone != null)
+                {
+                    teacher.Phone = t.Phone;
+                }
+                /*Teacher teacher = new Teacher()
+                {
+                    Id = Id,
                     Name = t.Name,
                     Age = t.Age,
                     Email = t.Email,
                     Phone = t.Phone,
                     Gender = t.Gender,
                     Students_Allocated = details.Teacher[index].Students_Allocated
-                };
+                };*/
                 details.Teacher[index] = teacher;
                 string jsonString = JsonSerializer.Serialize(details);
                 File.WriteAllText(Constants.path, jsonString);

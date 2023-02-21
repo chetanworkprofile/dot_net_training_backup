@@ -38,9 +38,9 @@ namespace StudentManagementSystemAPI.Controllers
 
         [HttpPost]
         [Route("/api/v1/UpdateTeacher")]
-        public IActionResult UpdateTeacher([FromBody] UpdateTeacher updateTeacher)
+        public IActionResult UpdateTeacher(Guid TeacherId, [FromBody] UpdateTeacher updateTeacher)
         {
-            Response response = TeacherServiceInstance.UpdateTeacher(updateTeacher);
+            Response response = TeacherServiceInstance.UpdateTeacher(TeacherId, updateTeacher);
             if (response.StatusCode == 200)
             {
                 return Ok(response);
