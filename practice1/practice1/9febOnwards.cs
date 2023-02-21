@@ -99,7 +99,7 @@ new Employee {Id  = 12,FirstName = "John",LastName = "Brown",Age= 40, Department
 }
 }
 */
-
+/*
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -147,6 +147,33 @@ namespace LinqDemo
                 new Book(124,"Story book",123,"william"),
                 new Book(125,"Rahul ki kahani",123,"steve smith")
             };
+        }
+    }
+}*/
+
+using StudentManagementSystemAPI.Modals;
+using System.Collections.Generic;
+using System.Text.Json;
+
+namespace StudentManagementSystemAPI.Services
+{
+    public class Service
+    {
+        public static string data = File.ReadAllText(@"./data.json");                 //stores whole json file in string variable
+                                                                                      //Console.WriteLine(data);
+
+        //deserialize json string into list of objects
+        List<Student> objs = JsonSerializer.Deserialize<List<Student>>(data)!;      //null forgiving operator
+
+        //checks if list of objs is not null to avoid null  object errors
+        if (objs is not null)
+        {
+          Console.WriteLine("Total length of input entries: " + objs.Count);
+        }
+        else
+        {
+           Console.WriteLine("null json file");
+           return;
         }
     }
 }

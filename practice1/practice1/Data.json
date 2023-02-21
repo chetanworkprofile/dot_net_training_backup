@@ -1,0 +1,119 @@
+﻿{
+  "Student": [
+    {
+      "id": 1,
+      "Name": "Frants",
+      "Age": 20,
+      "Email": "fcuruclis0@wired.com",
+      "Gender": "Male",
+      "Phone": 5212915527
+    },
+    {
+      "id": 2,
+      "Name": "Dominica",
+      "Age": 99,
+      "Email": "dfinci1@blogger.com",
+      "Gender": "Female",
+      "Phone": 15611167246
+    },
+    {
+      "id": 3,
+      "Name": "Alan",
+      "Age": 66,
+      "Email": "aingle2@ycombinator.com",
+      "Gender": "Male",
+      "Phone": 205174105153
+    },
+    {
+      "id": 4,
+      "Name": "Heriberto",
+      "Age": 96,
+      "Email": "hmyall3@hexun.com",
+      "Gender": "Male",
+      "Phone": 10279253197
+    }
+  ],
+  "Teacher": [
+    {
+      "id": 1,
+      "Name": "Marja",
+      "Age": 96,
+      "Email": "mmccoole0@newyorker.com",
+      "Gender": "Female",
+      "Phone": 8812623213,
+      "Students_Allocated": [
+        1,2,3,4
+      ]
+    },
+    {
+      "id": 2,
+      "Name": "Arabella",
+      "Age": 68,
+      "Email": "adanne1@arstechnica.com",
+      "Gender": "Female",
+      "Phone": 8812623213,
+      "Students_Allocated": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "id": 3,
+      "Name": "Tiebout",
+      "Age": 57,
+      "Email": "twhiff2@shop-pro.jp",
+      "Gender": "Male",
+      "Phone": 8812623213,
+      "Students_Allocated": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "id": 4,
+      "Name": "Cross",
+      "Age": 55,
+      "Email": "candri3@indiegogo.com",
+      "Gender": "Male",
+      "Phone": 8812623213,
+      "Students_Allocated": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "id": 5,
+      "Name": "Brenda",
+      "Age": 92,
+      "Email": "bronayne4@edublogs.org",
+      "Gender": "Genderqueer",
+      "Phone": 8812623213,
+      "Students_Allocated": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "id": 6,
+      "Name": "Crystal",
+      "Age": 13,
+      "Email": "cfried5@nih.gov",
+      "Gender": "Female",
+      "Phone": 8812623213,
+      "Students_Allocated": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  ]
+}

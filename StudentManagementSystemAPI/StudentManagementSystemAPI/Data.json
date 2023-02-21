@@ -1,0 +1,51 @@
+{
+  "Student": [
+    {
+      "Id": "f5ced0df-ccc3-422e-9404-89f6770bf289",
+      "Name": "maninder",
+      "Age": 22,
+      "Email": "string",
+      "Gender": "string",
+      "Phone": 0,
+      "CreatedAt": "2023-02-20T18:00:08.756089+05:30",
+      "UpdatedAt": "2023-02-20T18:00:08.7578057+05:30",
+      "TeacherId": "ef00e3ab-0e1c-4123-bf5e-f6105571aa6f",
+      "IsDeleted": false
+    },
+    {
+      "Id": "1d364eef-4ad1-4469-8941-16b24d2dcd52",
+      "Name": "abasdj",
+      "Age": 12,
+      "Email": "strins]sdasdsg",
+      "Gender": "string",
+      "Phone": 0,
+      "CreatedAt": "2023-02-20T18:00:20.4381302+05:30",
+      "UpdatedAt": "2023-02-20T18:13:28.7811096+05:30",
+      "TeacherId": "ef00e3ab-0e1c-4123-bf5e-f6105571aa6f",
+      "IsDeleted": true
+    }
+  ],
+  "Teacher": [
+    {
+      "Id": "bb9b85eb-5e5a-4f87-b9ff-e0a9ba8d3c1a",
+      "Name": "string",
+      "Age": 0,
+      "Email": "string",
+      "Gender": "string",
+      "Phone": 0,
+      "Students_Allocated": [
+      ]
+    },
+    {
+      "Id": "ef00e3ab-0e1c-4123-bf5e-f6105571aa6f",
+      "Name": "jugni",
+      "Age": 50,
+      "Email": "usjdas",
+      "Gender": "string",
+      "Phone": 0,
+      "Students_Allocated": [
+        "f5ced0df-ccc3-422e-9404-89f6770bf289"
+      ]
+    }
+  ]
+}
