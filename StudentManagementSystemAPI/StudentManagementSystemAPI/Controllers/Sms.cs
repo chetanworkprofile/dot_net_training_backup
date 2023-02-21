@@ -5,29 +5,39 @@ using System.Text.Json;
 using In = System.IO;
 using StudentManagementSystemAPI.Modals;
 using StudentManagementSystemAPI.Services;
+using System.Globalization;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace StudentManagementSystemAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1")]
     [ApiController]
     public class Sms : ControllerBase
     {
+        const string EmptyString = "";
         readonly string data;
         readonly JsonData details;
-        static readonly string path = @"C:\Users\User\source\repos\StudentManagementSystemAPI\StudentManagementSystemAPI\Data.json";
+        static readonly string path = @"C:\Users\ChicMic\source\repos\StudentManagementSystemAPI\StudentManagementSystemAPI\Data.json";
         //Service ServiceInstance;
 
         public Sms()
         {
             //ServiceInstance = new Service(path);
-            data = In.File.ReadAllText(@"C:\Users\User\source\repos\StudentManagementSystemAPI\StudentManagementSystemAPI\Data.json");
+            data = In.File.ReadAllText(@"C:\Users\ChicMic\source\repos\StudentManagementSystemAPI\StudentManagementSystemAPI\Data.json");
             details = (JsonData)JsonSerializer.Deserialize<JsonData>(data, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true })!;
         }
 
         [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("GetTeachers")]
         public IActionResult GetTeachers()
         {
-            string? data = In.File.ReadAllText(@"C:\Users\User\source\repos\StudentManagementSystemAPI\StudentManagementSystemAPI\Data.json");
+            string? data = In.File.ReadAllText(@"C:\Users\ChicMic\source\repos\StudentManagementSystemAPI\StudentManagementSystemAPI\Data.json");
             JsonData? details = (JsonData)JsonSerializer.Deserialize<JsonData>(data, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true })!;
             var teacher = details.Teacher;
             return Ok(teacher);
@@ -36,14 +46,58 @@ namespace StudentManagementSystemAPI.Controllers
 
         [HttpGet]
         [Route("GetStudents")]
-        public IActionResult GetStudents()
+        public IActionResult GetStudents(Guid? StudentID = null, string? Name = null, string? Email = null, int MinAge = 0, int MaxAge = 1000, string? Gender = null, long Phone = 0, String OrderBy = "Id", int SortOrder = 1,int RecordsPerPage = 10,int PageNumber = 0)          //1 for ascending   -1 for descending
         {
-            string? data = In.File.ReadAllText(@"C:\Users\User\source\repos\StudentManagementSystemAPI\StudentManagementSystemAPI\Data.json");
+            string? data = In.File.ReadAllText(@"C:\Users\ChicMic\source\repos\StudentManagementSystemAPI\StudentManagementSystemAPI\Data.json");
             JsonData? details = (JsonData)JsonSerializer.Deserialize<JsonData>(data, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true })!;
-            var studentList = details.Student.AsQueryable();
+            var studentList = details.Student;
             var student = from s in studentList
-                          where s.IsDeleted== false
+                          where s.IsDeleted == false
                           select s;
+ 
+
+            if (StudentID != null) { student = student.Where(s => (s.Id == StudentID )); }
+            if (Name != null) { student = student.Where(s => (s.Name == Name)); }
+            if (Email != null) { student = student.Where(s => (s.Email == Email )); }
+            if (Gender != null) { student = student.Where(s => (s.Gender == Gender)); }
+            if (Phone != 0) { student = student.Where(s => (s.Phone == Phone)); }
+            
+
+            Func<Student, Object> orderBy = s => s.Id;
+            if (OrderBy == "Id" || OrderBy == "ID" || OrderBy == "id")
+            {
+                orderBy = x => x.Id;
+            }
+            else if (OrderBy == "FullName" || OrderBy == "Name" || OrderBy == "name")
+            {
+                orderBy = x => x.Name;
+            }
+            else if (OrderBy == "Email" || OrderBy == "email")
+            {
+                orderBy = x => x.Email;
+            }
+            else if (OrderBy == "Age" || OrderBy == "age")
+            {
+                orderBy = x => x.Age;
+            }
+            else if (OrderBy == "Phone" || OrderBy == "phone")
+            {
+                orderBy = x => x.Phone;
+            }
+
+            if (SortOrder == 1)
+            {
+                student = student.OrderBy(orderBy).Select(c => (c));
+            }
+            else
+            {
+                student = student.OrderByDescending(orderBy).Select(c => (c));
+            }
+
+            //pagination
+            student = student.Skip((PageNumber - 1) * RecordsPerPage)
+                                  .Take(RecordsPerPage);
+
             return Ok(student);
 
         }
@@ -77,7 +131,7 @@ namespace StudentManagementSystemAPI.Controllers
         public IActionResult CreateStudent([FromBody] CreateStudent s)
         {
             var TeacherDetails = details.Teacher.AsQueryable();
-            bool TeacherExists = TeacherDetails.Where(x=> (x.Id == s.TeacherId)).Any();
+            bool TeacherExists = TeacherDetails.Where(x => (x.Id == s.TeacherId)).Any();
             if (TeacherExists)
             {
                 int index = details.Teacher.FindIndex(p => p.Id == s.TeacherId);
@@ -106,10 +160,10 @@ namespace StudentManagementSystemAPI.Controllers
             {
                 return BadRequest("Teacher Not found");
             }
-            
+
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("UpdateStudent")]
         public IActionResult UpdateStudent([FromBody] UpdateStudent s)
         {
@@ -117,9 +171,9 @@ namespace StudentManagementSystemAPI.Controllers
             /*var TeacherDetails = details.Teacher.AsQueryable();*/
             /*bool TeacherExists = TeacherDetails.Where(x => (x.Id == s.TeacherId)).Any();*/
             int indexTeacher = details.Teacher.FindIndex(p => p.Id == s.TeacherId);
-            if (indexTeacher>=0)
+            if (indexTeacher >= 0)
             {
-                if (index>=0)
+                if (index >= 0)
                 {
 
                     if (details.Teacher[indexTeacher].Students_Allocated.Contains(s.Id))
@@ -137,7 +191,7 @@ namespace StudentManagementSystemAPI.Controllers
                             UpdatedAt = DateTime.Now,
                             IsDeleted = false
                         };
-                        details.Student[index] = student; 
+                        details.Student[index] = student;
                     }
                     else
                     {
@@ -166,7 +220,7 @@ namespace StudentManagementSystemAPI.Controllers
 
         [HttpDelete]
         [Route("DeleteStudent")]
-        public IActionResult DeleteStudent([FromHeader] Guid TeacherId,Guid StudentId)
+        public IActionResult DeleteStudent([FromHeader] Guid TeacherId, Guid StudentId)
         {
             int index = details.Student.FindIndex(p => p.Id == StudentId);
             int indexTeacher = details.Teacher.FindIndex(p => p.Id == TeacherId);
@@ -202,6 +256,40 @@ namespace StudentManagementSystemAPI.Controllers
 
         }
 
+        [HttpPost]
+        [Route("UpdateTeacher")]
+        public IActionResult UpdateTeacher([FromBody] UpdateTeacher t)
+        {
+            int index = details.Teacher.FindIndex(p => p.Id == t.Id);     
+
+                if (index >= 0)
+                {
+                Teacher teacher = new Teacher()
+                {
+                    Id = t.Id,
+                    Name= t.Name,  
+                    Age= t.Age,
+                    Email= t.Email,
+                    Phone= t.Phone,
+                    Gender= t.Gender,
+                    Students_Allocated = details.Teacher[index].Students_Allocated
+                };
+                details.Teacher[index] = teacher;
+                }
+                else
+                {
+                    return NotFound("Teacher not found");
+                }
+
+                string jsonString = JsonSerializer.Serialize(details);
+                In.File.WriteAllText(path, jsonString);
+
+                Console.WriteLine(In.File.ReadAllText(path));
+                return Ok(details.Teacher[index]);
+            }
+
+
+        }
 
 
 
@@ -247,7 +335,8 @@ namespace StudentManagementSystemAPI.Controllers
             string? data = In.File.ReadAllText(@"C:\Users\User\source\repos\StudentManagementSystemAPI\StudentManagementSystemAPI\Data.json");
             JsonData? details = (JsonData)JsonSerializer.Deserialize<JsonData>(data, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true })!;
 
-            details.Student.Add(st);
+            details.Student.Add(st)
+;
             string fileName = @"C:\Users\User\source\repos\StudentManagementSystemAPI\StudentManagementSystemAPI\Data.json";
             string jsonString = JsonSerializer.Serialize(details);
             In.File.WriteAllText(fileName, jsonString);
@@ -256,5 +345,3 @@ namespace StudentManagementSystemAPI.Controllers
             return Ok(In.File.ReadAllText(fileName));
         }*/
     }
-}
-

@@ -23,15 +23,39 @@
       "UpdatedAt": "2023-02-20T18:13:28.7811096+05:30",
       "TeacherId": "ef00e3ab-0e1c-4123-bf5e-f6105571aa6f",
       "IsDeleted": true
+    },
+    {
+      "Id": "b5df2247-7b78-4dc4-aad9-298fc19626dc",
+      "Name": "mandeep",
+      "Age": 30,
+      "Email": "mandeep@gmail.com",
+      "Gender": "male",
+      "Phone": 0,
+      "CreatedAt": "2023-02-21T14:01:43.5274032+05:30",
+      "UpdatedAt": "2023-02-21T14:01:43.5276319+05:30",
+      "TeacherId": "ef00e3ab-0e1c-4123-bf5e-f6105571aa6f",
+      "IsDeleted": false
+    },
+    {
+      "Id": "72196be8-db7e-4be7-a22c-927158645498",
+      "Name": "rukhsar",
+      "Age": 23,
+      "Email": "rukhsar@gmail.com",
+      "Gender": "female",
+      "Phone": 0,
+      "CreatedAt": "2023-02-21T14:03:41.220629+05:30",
+      "UpdatedAt": "2023-02-21T14:03:41.2206298+05:30",
+      "TeacherId": "bb9b85eb-5e5a-4f87-b9ff-e0a9ba8d3c1a",
+      "IsDeleted": false
     }
   ],
   "Teacher": [
     {
       "Id": "bb9b85eb-5e5a-4f87-b9ff-e0a9ba8d3c1a",
-      "Name": "string",
-      "Age": 0,
-      "Email": "string",
-      "Gender": "string",
+      "Name": "satinderpal singh",
+      "Age": 45,
+      "Email": "satinder@gmail.com",
+      "Gender": "male",
       "Phone": 0,
       "Students_Allocated": [
       ]
@@ -44,7 +68,8 @@
       "Gender": "string",
       "Phone": 0,
       "Students_Allocated": [
-        "f5ced0df-ccc3-422e-9404-89f6770bf289"
+        "f5ced0df-ccc3-422e-9404-89f6770bf289",
+        "b5df2247-7b78-4dc4-aad9-298fc19626dc"
       ]
     }
   ]
