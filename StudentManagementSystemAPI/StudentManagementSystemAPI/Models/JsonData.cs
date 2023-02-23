@@ -1,4 +1,4 @@
-﻿namespace StudentManagementSystemAPI.Modals
+﻿namespace StudentManagementSystemAPI.Models
 {
     public class JsonData
     {

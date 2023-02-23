@@ -1,4 +1,4 @@
-﻿namespace StudentManagementSystemAPI.Modals
+﻿namespace StudentManagementSystemAPI.Models
 {
     public class StudentResponse
     {
@@ -8,6 +8,7 @@
         public string? Email { get; set; }
         public string? Gender { get; set; }
         public long Phone { get; set; }
+        public string PathToProfilePic { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public Guid TeacherId { get; set; }

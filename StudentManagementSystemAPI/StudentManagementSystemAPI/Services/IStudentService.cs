@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StudentManagementSystemAPI.Modals;
+using StudentManagementSystemAPI.Models;
 
 namespace StudentManagementSystemAPI.Services
 {

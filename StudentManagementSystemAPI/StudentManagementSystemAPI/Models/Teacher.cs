@@ -1,6 +1,6 @@
-﻿namespace StudentManagementSystemAPI.Modals
+﻿namespace StudentManagementSystemAPI.Models
 {
-    public class Student
+    public class Teacher
     {
         public Guid Id { get; set; }
         public string? Name { get; set; }
@@ -8,9 +8,7 @@
         public string? Email { get; set; }
         public string? Gender { get; set; }
         public long Phone { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get;set; }
-        public Guid TeacherId { get; set; }
-        public bool IsDeleted { get; set; }
+        public string PathToProfilePic { get; set; }
+        public List<Guid>? Students_Allocated { get; set; }
     }
 }

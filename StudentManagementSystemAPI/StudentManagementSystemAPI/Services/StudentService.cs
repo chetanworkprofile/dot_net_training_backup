@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StudentManagementSystemAPI.Modals;
+using StudentManagementSystemAPI.Models;
 using System.IO;
 using System.Text.Json;
 
@@ -79,7 +79,9 @@ namespace StudentManagementSystemAPI.Services
                     Phone= stud.Phone,
                     Gender= stud.Gender,
                     CreatedAt= stud.CreatedAt,
-                    UpdatedAt= stud.UpdatedAt
+                    UpdatedAt= stud.UpdatedAt,
+                    TeacherId= stud.TeacherId,
+                    PathToProfilePic = stud.PathToProfilePic,
                 });
             }
             response.StatusCode = 200;
@@ -88,9 +90,9 @@ namespace StudentManagementSystemAPI.Services
             return response;
         }
 
-        public Response UpdateStudent(Guid Id, Guid TeacherId, [FromBody] UpdateStudent s)
+        public Response UpdateStudent(Guid Id, Guid TeacherId, [FromBody] UpdateStudent updateStud)
         {
-            int index = details.Student.FindIndex(p => p.Id == Id);
+            int index = details.Student.FindIndex(p => (p.Id == Id));
             int indexTeacher = details.Teacher.FindIndex(p => p.Id == TeacherId);
             if (indexTeacher >= 0)
             {
@@ -100,25 +102,29 @@ namespace StudentManagementSystemAPI.Services
                     {
                         Student student = new Student();
                         student = details.Student[index];
-                        if (s.Name != "string" && s.Name != null)
+                        if (updateStud.Name != "string" && updateStud.Name != null)
                         {
-                            student.Name = s.Name;
+                            student.Name = updateStud.Name;
                         }
-                        if (s.Age != 0 && s.Age != null)
+                        if (updateStud.Age != 0 && updateStud.Age != null)
                         {
-                            student.Age = s.Age;
+                            student.Age = updateStud.Age;
                         }
-                        if (s.Email != "string" && s.Email != null)
+                        if (updateStud.Email != "string" && updateStud.Email != null)
                         {
-                            student.Email = s.Email;
+                            student.Email = updateStud.Email;
                         }
-                        if (s.Gender != "string" && s.Gender != null)
+                        if (updateStud.Gender != "string" && updateStud.Gender != null)
                         {
-                            student.Gender = s.Gender;
+                            student.Gender = updateStud.Gender;
                         }
-                        if (s.Phone != 0 && s.Phone != null)
+                        if (updateStud.Phone != 0 && updateStud.Phone != null)
                         {
-                            student.Phone = s.Phone;
+                            student.Phone = updateStud.Phone;
+                        }
+                        if (updateStud.PathToProfilePic != "string" && updateStud.PathToProfilePic != null)
+                        {
+                            student.PathToProfilePic = updateStud.PathToProfilePic;
                         }
                         student.UpdatedAt = DateTime.Now;
                         student.IsDeleted = false;
@@ -187,6 +193,7 @@ namespace StudentManagementSystemAPI.Services
                     TeacherId = s.TeacherId,
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
+                    PathToProfilePic= s.PathToProfilePic,
                     IsDeleted = false
                 };
                 StudentResponse studentResponse = new()
@@ -198,6 +205,7 @@ namespace StudentManagementSystemAPI.Services
                     Phone = s.Phone,
                     Gender = s.Gender,
                     TeacherId = s.TeacherId,
+                    PathToProfilePic= s.PathToProfilePic,
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
                 };

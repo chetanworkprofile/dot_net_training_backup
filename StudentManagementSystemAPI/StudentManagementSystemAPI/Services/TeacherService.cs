@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StudentManagementSystemAPI.Modals;
+using StudentManagementSystemAPI.Models;
 using System.Text.Json;
 using StudentManagementSystemAPI.Controllers;
 using StudentManagementSystemAPI;
@@ -84,6 +84,7 @@ namespace StudentManagementSystemAPI.Services
                 Email = t.Email,
                 Gender = t.Gender,
                 Phone = t.Phone,
+                PathToProfilePic= t.PathToProfilePic,
                 Students_Allocated = new List<Guid> { }
             };
             details.Teacher.Add(teacher);
@@ -122,6 +123,10 @@ namespace StudentManagementSystemAPI.Services
                 if (t.Phone != 0 && t.Phone != null)
                 {
                     teacher.Phone = t.Phone;
+                }
+                if (t.PathToProfilePic != "string" && t.PathToProfilePic != null)
+                {
+                    teacher.PathToProfilePic = t.PathToProfilePic;
                 }
                 /*Teacher teacher = new Teacher()
                 {

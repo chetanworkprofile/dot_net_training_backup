@@ -1,4 +1,4 @@
-﻿using StudentManagementSystemAPI.Modals;
+﻿using StudentManagementSystemAPI.Models;
 using StudentManagementSystemAPI.Controllers;
 using Microsoft.AspNetCore.Mvc;
 

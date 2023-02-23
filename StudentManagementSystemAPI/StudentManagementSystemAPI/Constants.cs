@@ -2,6 +2,6 @@
 {
     public class Constants
     {
-        public static string path = @"C:\Users\ChicMic\source\repos\StudentManagementSystemAPI\StudentManagementSystemAPI\Data.json";
+        public static string path = @"./Data.json";
     }
 }

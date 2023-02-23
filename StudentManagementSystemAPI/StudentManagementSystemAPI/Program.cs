@@ -1,5 +1,5 @@
 using StudentManagementSystemAPI.Services;
-using StudentManagementSystemAPI.Modals;
+using StudentManagementSystemAPI.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +12,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IUploadPicService, UploadPicService>();
 
 // Build the WebApplication instance
 var app = builder.Build();
