@@ -19,7 +19,7 @@ namespace StudentManagementSystemAPI.Services
 
         public async Task<Response> PicUploadAsync(IFormFile file, Guid Id)
         {
-            var folderName = Path.Combine("Assets");
+            var folderName = Path.Combine("Assets","Images");
             var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
             var index = details.Student.FindIndex(p => (p.Id == Id));
             var indexTeacher = details.Teacher.FindIndex(p => p.Id == Id);
