@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentManagementSystemAPI.Models;
 using StudentManagementSystemAPI.Services;
+using System.Security.Claims;
 
 namespace StudentManagementSystemAPI.Controllers
 {
@@ -16,7 +17,7 @@ namespace StudentManagementSystemAPI.Controllers
             StudentServiceInstance = new StudentService();
         }
 
-        [HttpGet, Authorize(Roles = "Teacher,Student")]
+        [HttpGet, Authorize(Roles = "Teacher")]
         public IActionResult GetStudents(Guid? StudentID = null, string? Name = null, string? Email = null, int MinAge = 0, int MaxAge = 1000, string? Gender = null, long Phone = 0, String OrderBy = "Id", int SortOrder = 1, int RecordsPerPage = 10, int PageNumber = 0)          //1 for ascending   -1 for descending
         {
             try
@@ -36,7 +37,8 @@ namespace StudentManagementSystemAPI.Controllers
         {
             try
             {
-                Response response = StudentServiceInstance.CreateStudent(s);
+                string? TeacherUsername = User.FindFirst(ClaimTypes.Name)?.Value;
+                Response response = StudentServiceInstance.CreateStudent(s,TeacherUsername);
                 if (response.StatusCode == 200)
                 {
                     return Ok(response);
@@ -48,11 +50,12 @@ namespace StudentManagementSystemAPI.Controllers
 
         [HttpPut, Authorize(Roles = "Teacher")]
         [Route("/api/v1/UpdateStudent")]
-        public IActionResult UpdateStudent(Guid studentId, Guid teacherId, [FromBody] UpdateStudent updatestudent)
+        public IActionResult UpdateStudent(Guid studentId, [FromBody] UpdateStudent updatestudent)
         {
             try
             {
-                Response response = StudentServiceInstance.UpdateStudent(studentId, teacherId, updatestudent);
+                string? TeacherUsername = User.FindFirst(ClaimTypes.Name)?.Value;
+                Response response = StudentServiceInstance.UpdateStudent(studentId, TeacherUsername, updatestudent);
                 if (response.StatusCode == 404)
                 {
                     return NotFound(response);
@@ -69,11 +72,12 @@ namespace StudentManagementSystemAPI.Controllers
 
         [HttpDelete, Authorize(Roles = "Teacher")]
         [Route("/api/v1/DeleteStudent")]
-        public IActionResult DeleteStudent([FromHeader] Guid TeacherId, Guid StudentId)
+        public IActionResult DeleteStudent(Guid StudentId)
         {
             try
             {
-                Response respnse = StudentServiceInstance.DeleteStudent(TeacherId, StudentId);
+                string? TeacherUsername = User.FindFirst(ClaimTypes.Name)?.Value;
+                Response respnse = StudentServiceInstance.DeleteStudent(TeacherUsername, StudentId);
                 if (respnse.StatusCode == 200)
                 {
                     return Ok(respnse);

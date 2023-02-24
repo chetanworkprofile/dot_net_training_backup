@@ -18,11 +18,11 @@ namespace StudentManagementSystemAPI.Controllers
 
         [HttpPost, DisableRequestSizeLimit, Authorize(Roles = "Teacher,Student")]
         [Route("/api/v1/UploadFiles")]
-        public async Task<IActionResult> PicUploadAsync(IFormFile file, Guid Id)
+        public async Task<IActionResult> PicUploadAsync(IFormFile file)
         {
             try
             {
-                Response response = await uploadPicServiceInstance.PicUploadAsync(file, Id);
+                Response response = await uploadPicServiceInstance.PicUploadAsync(file);
                 if (response.StatusCode == 200)
                 {
                     return Ok(response);

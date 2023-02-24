@@ -17,24 +17,29 @@ namespace StudentManagementSystemAPI.Services
             details = (JsonData)JsonSerializer.Deserialize<JsonData>(data, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true })!;
         }
 
-        public async Task<Response> PicUploadAsync(IFormFile file, Guid Id)
+        public async Task<Response> PicUploadAsync(IFormFile file)
         {
             var folderName = Path.Combine("Assets","Images");
             var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-            var index = details.Student.FindIndex(p => (p.Id == Id));
-            var indexTeacher = details.Teacher.FindIndex(p => p.Id == Id);
-            
+           /* var index = details.Student.FindIndex(p => (p.Id == Id));                             //this commented portion was implemented to automatically save file path to teacher and student individual ids in json file
+            var indexTeacher = details.Teacher.FindIndex(p => p.Id == Id);*/
+
             if (file.Length > 0)
             {
-                if (index >= 0)
+                /*if (index >= 0)
                 {
                     details.Student[index].PathToProfilePic = pathToSave;
                 }
                 else if (indexTeacher >= 0)
                 {
                     details.Teacher[indexTeacher].PathToProfilePic = pathToSave;
-                }
-                var fileName = Id.ToString();
+                }*/
+                var fileName = string.Concat(
+                                    Path.GetFileNameWithoutExtension(file.FileName),
+                                    DateTime.Now.ToString("yyyyMMddHHmmssfff"),
+                                    Path.GetExtension(file.FileName)
+                                    );
+
                 var fullPath = Path.Combine(pathToSave, fileName);
 
                 using (var stream = System.IO.File.Create(fullPath))
@@ -46,7 +51,7 @@ namespace StudentManagementSystemAPI.Services
 
                 response.StatusCode= 200;
                 response.Message = "File Uploaded Successfully";
-                response.Data = fullPath;
+                response.Data = Path.Combine(folderName,fileName);
                 return response;
             }
             response.Message = "Please provide a file for successful upload";
@@ -57,35 +62,3 @@ namespace StudentManagementSystemAPI.Services
 
     }
 }
-
-
-/*public async Task<IActionResult> Upload(Guid TeacherId)
-{
-    try
-    {
-        var formCollection = await Request.ReadFormAsync();
-        var file = formCollection.Files.First();
-        var folderName = Path.Combine("Resources", "Images");
-        var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-        if (file.Length > 0)
-        {
-            //var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-            var fileName = TeacherId.ToString();
-            var fullPath = Path.Combine(pathToSave, fileName);
-            var dbPath = Path.Combine(folderName, fileName);
-            using (var stream = new FileStream(fullPath, FileMode.Create))
-            {
-                file.CopyTo(stream);
-            }
-            return Ok(new { dbPath });
-        }
-        else
-        {
-            return BadRequest();
-        }
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(500, $"Internal server error: {ex}");
-    }
-}*/

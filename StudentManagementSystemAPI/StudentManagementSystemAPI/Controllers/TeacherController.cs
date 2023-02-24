@@ -11,9 +11,9 @@ namespace StudentManagementSystemAPI.Controllers
     public class TeacherController : ControllerBase
     {
         TeacherService TeacherServiceInstance;
-        public TeacherController()
+        public TeacherController(IConfiguration configuration)
         {
-            TeacherServiceInstance = new TeacherService();
+            TeacherServiceInstance = new TeacherService(configuration);
         }
 
         [HttpGet, Authorize(Roles = "Teacher")]
@@ -22,21 +22,6 @@ namespace StudentManagementSystemAPI.Controllers
             try
             {
                 Response response = TeacherServiceInstance.GetTeachers(TeacherID, Name, Email, MinAge, MaxAge, Gender, Phone, OrderBy, SortOrder, RecordsPerPage, PageNumber);
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex}"); ;
-            }
-        }
-
-        [HttpPost, Authorize(Roles = "Teacher")]
-        [Route("/api/v1/RegisterTeacher")]
-        public IActionResult AddTeacher([FromBody] AddTeacher addTeacher)
-        {
-            try
-            {
-                Response response = TeacherServiceInstance.AddTeacher(addTeacher);
                 return Ok(response);
             }
             catch (Exception ex)

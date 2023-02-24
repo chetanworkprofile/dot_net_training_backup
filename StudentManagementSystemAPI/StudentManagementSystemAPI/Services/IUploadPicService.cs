@@ -4,6 +4,6 @@ namespace StudentManagementSystemAPI.Services
 {
     public interface IUploadPicService
     {
-        public Task<Response> PicUploadAsync(IFormFile file, Guid TeacherId);
+        public Task<Response> PicUploadAsync(IFormFile file);
     }
 }

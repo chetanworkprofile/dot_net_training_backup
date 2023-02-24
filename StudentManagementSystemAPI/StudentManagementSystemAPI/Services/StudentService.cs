@@ -13,7 +13,7 @@ namespace StudentManagementSystemAPI.Services
         public StudentService()
         {
             data = File.ReadAllText(Constants.path);
-            details = (JsonData)JsonSerializer.Deserialize<JsonData>(data, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true })!;
+            details = JsonSerializer.Deserialize<JsonData>(data, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true })!;
         }
         public Response GetStudents(Guid? StudentID, string? Name, string? Email, int MinAge, int MaxAge, string? Gender, long Phone, String OrderBy, int SortOrder, int RecordsPerPage, int PageNumber)          //1 for ascending   -1 for descending
         {
@@ -90,10 +90,11 @@ namespace StudentManagementSystemAPI.Services
             return response;
         }
 
-        public Response UpdateStudent(Guid Id, Guid TeacherId, [FromBody] UpdateStudent updateStud)
+        public Response UpdateStudent(Guid Id, string TeacherUsername, [FromBody] UpdateStudent updateStud)
         {
             int index = details.Student.FindIndex(p => (p.Id == Id));
-            int indexTeacher = details.Teacher.FindIndex(p => p.Id == TeacherId);
+            int indexTeacher = details.Teacher.FindIndex(p => p.Username == TeacherUsername);
+            Guid TeacherId = details.Teacher[indexTeacher].Id;
             if (indexTeacher >= 0)
             {
                 if (index >= 0)
@@ -175,13 +176,14 @@ namespace StudentManagementSystemAPI.Services
 
         }
 
-        public Response CreateStudent([FromBody] CreateStudent s)
+        public Response CreateStudent([FromBody] CreateStudent s,String TeacherUsername)
         {
             var TeacherDetails = details.Teacher.AsQueryable();
-            bool TeacherExists = TeacherDetails.Where(x => (x.Id == s.TeacherId)).Any();
+            bool TeacherExists = TeacherDetails.Where(x => (x.Username == TeacherUsername)).Any();
             if (TeacherExists)
             {
-                int index = details.Teacher.FindIndex(p => p.Id == s.TeacherId);
+                int index = details.Teacher.FindIndex(p => p.Username == TeacherUsername);
+                Guid TeacherId = details.Teacher[index].Id;
                 Student student = new()
                 {
                     Id = Guid.NewGuid(),
@@ -190,7 +192,7 @@ namespace StudentManagementSystemAPI.Services
                     Email = s.Email,
                     Phone = s.Phone,
                     Gender = s.Gender,
-                    TeacherId = s.TeacherId,
+                    TeacherId = TeacherId,
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     PathToProfilePic= s.PathToProfilePic,
@@ -204,7 +206,7 @@ namespace StudentManagementSystemAPI.Services
                     Email = s.Email,
                     Phone = s.Phone,
                     Gender = s.Gender,
-                    TeacherId = s.TeacherId,
+                    TeacherId = TeacherId,
                     PathToProfilePic= s.PathToProfilePic,
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now
@@ -228,10 +230,11 @@ namespace StudentManagementSystemAPI.Services
 
         }
 
-        public Response DeleteStudent([FromHeader] Guid TeacherId, Guid StudentId)
+        public Response DeleteStudent(string TeacherUsername, Guid StudentId)
         {
             int index = details.Student.FindIndex(p => p.Id == StudentId);
-            int indexTeacher = details.Teacher.FindIndex(p => p.Id == TeacherId);
+            int indexTeacher = details.Teacher.FindIndex(p => p.Username == TeacherUsername);
+            Guid TeacherId = details.Teacher[indexTeacher].Id;
             if (indexTeacher >= 0)
             {
                 if (index >= 0)
