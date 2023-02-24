@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             };
         });
 
+builder.Services.AddCors(options => options.AddPolicy( name: "CorsPolicy",
+    policy =>
+    {
+        policy.WithOrigins().AllowAnyMethod().AllowAnyHeader();
+    }
+    ));
+
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
@@ -56,6 +64,17 @@ if (app.Environment.IsDevelopment())
 
 // Use HTTPS redirection
 app.UseHttpsRedirection();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+           Path.Combine(builder.Environment.ContentRootPath, "Assets")),
+    RequestPath = "/StaticFiles"
+});
+
+app.UseRouting();
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 
