@@ -56,11 +56,10 @@ builder.Services.AddScoped<IUploadPicService, UploadPicService>();
 var app = builder.Build();
 
 // If the environment is development, use Swagger and SwaggerUI
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 // Use HTTPS redirection
 app.UseHttpsRedirection();

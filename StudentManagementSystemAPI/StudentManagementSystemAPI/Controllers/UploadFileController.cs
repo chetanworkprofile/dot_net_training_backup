@@ -11,9 +11,11 @@ namespace StudentManagementSystemAPI.Controllers
     public class UploadFileController : ControllerBase
     {
         UploadPicService uploadPicServiceInstance;
-        public UploadFileController()
+        private readonly ILogger<UploadFileController> _logger;
+        public UploadFileController(ILogger<UploadFileController> logger)
         {
             uploadPicServiceInstance = new UploadPicService();
+            _logger = logger;
         }
 
         [HttpPost, DisableRequestSizeLimit, Authorize(Roles = "Teacher,Student")]
@@ -22,6 +24,7 @@ namespace StudentManagementSystemAPI.Controllers
         {
             try
             {
+                _logger.LogInformation("Pic Upload method started");
                 Response response = await uploadPicServiceInstance.PicUploadAsync(file);
                 if (response.StatusCode == 200)
                 {
@@ -34,6 +37,7 @@ namespace StudentManagementSystemAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError("Internal server error something wrong happened ", DateTime.Now);
                 return StatusCode(500, $"Internal server error: {ex}");
             }
         }

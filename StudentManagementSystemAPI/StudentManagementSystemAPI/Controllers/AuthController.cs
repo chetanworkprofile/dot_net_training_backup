@@ -12,24 +12,35 @@ namespace StudentManagementSystemAPI.Controllers
         AuthService authService;
         TeacherService teacherService;
         Response response = new Response();
+        private readonly ILogger<AuthController> _logger;
 
-        public AuthController(IConfiguration configuration)
+        public AuthController(IConfiguration configuration, ILogger<AuthController> logger)
         {
             authService = new AuthService(configuration);
-            teacherService= new TeacherService(configuration);
+            teacherService = new TeacherService(configuration);
+            _logger = logger;
         }
 
         [HttpPost]
         [Route("/api/v1/RegisterTeacher")]
         public IActionResult AddTeacher([FromBody] AddTeacher addTeacher)
         {
+            /*if(!ModelState.IsValid)
+            {
+                response.StatusCode = 400;
+                response.Message = "Invalid input";
+                response.Data = ValidationProblem(ModelState);
+                return BadRequest(response);
+            }*/
             try
             {
+                _logger.LogInformation("Add Teacher method started");
                 Response response = teacherService.AddTeacher(addTeacher);
                 return Ok(response);
             }
             catch (Exception ex)
             {
+                _logger.LogError("Internal server error something wrong happened ", DateTime.Now);
                 return StatusCode(500, $"Internal server error: {ex}"); ;
             }
         }
@@ -37,15 +48,16 @@ namespace StudentManagementSystemAPI.Controllers
         [HttpPost("TeacherLogin")]
         public ActionResult<User> TeacherLogin(UserDTO request)
         {
+            _logger.LogInformation("Teacher Login attempt");
             response = authService.TeacherLogin(request);
 
             if (response.StatusCode == 404)
             {
-                return BadRequest("User not found");
+                return BadRequest(response);
             }
             else if (response.StatusCode == 403)
             {
-                return BadRequest("Wrong password.");
+                return BadRequest(response);
             }
             return Ok(response);
         }

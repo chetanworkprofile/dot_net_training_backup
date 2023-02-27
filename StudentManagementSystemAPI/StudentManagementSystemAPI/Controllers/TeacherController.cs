@@ -11,9 +11,11 @@ namespace StudentManagementSystemAPI.Controllers
     public class TeacherController : ControllerBase
     {
         TeacherService TeacherServiceInstance;
-        public TeacherController(IConfiguration configuration)
+        private readonly ILogger<TeacherController> _logger;
+        public TeacherController(IConfiguration configuration, ILogger<TeacherController> logger)
         {
             TeacherServiceInstance = new TeacherService(configuration);
+            _logger = logger;
         }
 
         [HttpGet, Authorize(Roles = "Teacher")]
@@ -21,11 +23,13 @@ namespace StudentManagementSystemAPI.Controllers
         {
             try
             {
+                _logger.LogInformation("Get Teachers method started");
                 Response response = TeacherServiceInstance.GetTeachers(TeacherID, Name, Email, MinAge, MaxAge, Gender, Phone, OrderBy, SortOrder, RecordsPerPage, PageNumber);
                 return Ok(response);
             }
             catch (Exception ex)
             {
+                _logger.LogError("Internal server error something wrong happened ", DateTime.Now);
                 return StatusCode(500, $"Internal server error: {ex}"); ;
             }
         }
@@ -36,6 +40,7 @@ namespace StudentManagementSystemAPI.Controllers
         {
             try
             {
+                _logger.LogInformation("Update teacher method started");
                 Response response = TeacherServiceInstance.UpdateTeacher(TeacherId, updateTeacher);
                 if (response.StatusCode == 200)
                 {
@@ -45,6 +50,7 @@ namespace StudentManagementSystemAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError("Internal server error something wrong happened ", DateTime.Now);
                 return StatusCode(500, $"Internal server error: {ex}"); ;
             }
         }
